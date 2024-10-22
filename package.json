@@ -1,0 +1,15 @@
+{
+  "name": "biblioteca",
+  "version": "1.0.0",
+  "main": "livros_repository.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "Eduardo Vigil",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.1"
+  }
+}
