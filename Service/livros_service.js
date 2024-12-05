@@ -4,6 +4,12 @@ function listar() {
   return livrosRepository.listarLivros();
 }
 
+function buscarPorId(id) {
+  const livroEncontrado = livrosRepository.buscarLivroPorId(id)
+  if (livroEncontrado) return livroEncontrado
+  else throw {id: 404, msg: 'Livro com este id não existe'}
+}
+
 function inserir(livro) {
   if (
     livro.titulo &&
@@ -29,13 +35,13 @@ function atualizar(id, atualizacao) {
     ) {
       livrosRepository.atualizarLivro(id, atualizacao);
     } else throw { id: 400, msg: 'Atualização com dados inválidos' };
-  } else throw { id: 404, msg: 'Livro não encontrado' };
+  } else throw { id: 404, msg: 'Livro com este id não existe' };
 }
 
 function deletar(id) {
   if (livrosRepository.buscarLivroPorId(id)) {
     livrosRepository.deletarLivro(id);
-  } else throw { id: 404, msg: 'Livro não encontrado' };
+  } else throw { id: 404, msg: 'Livro com este id não existe' };
 }
 
 module.exports = {
