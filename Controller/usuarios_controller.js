@@ -1,32 +1,54 @@
-const usuarios_service = require('./usuarios_service');
+const usuariosService = require('../Service/usuarios_service');
 
-app.get('/', (req, res) => {
-  res.json(usuarios_service.listar());
-});
+function listar(req, res) {
+  res.json(usuariosService.listar());
+}
 
-app.post('/', (req, res) => {
+function buscarPorId(req, res) {
   try {
-    const novoUsuario = usuarios_service.inserir(req.body);
+    const usuarioEncontrado = usuariosService.buscarPorId(
+      Number(req.params.id)
+    );
+    res.status(200).json(usuarioEncontrado);
+  } catch (err) {
+    res.status(err.id).json(err);
+  }
+}
+
+function inserir(req, res) {
+  try {
+    const novoUsuario = usuariosService.inserir(req.body);
     res.status(201).json(novoUsuario);
   } catch (err) {
     res.status(err.id).json(err);
   }
-});
+}
 
-app.put('/id:', (req, res) => {
+function atualizar(req, res) {
   try {
-    const usuarioAtualizado = usuarios_service.atualizar(req.params.id, req.body);
+    const usuarioAtualizado = usuariosService.atualizar(
+      Number(req.params.id),
+      req.body
+    );
     res.json(usuarioAtualizado);
   } catch (err) {
     res.status(err.id).json(err);
   }
-});
+}
 
-app.delete('/id:', (req, res) => {
+function deletar(req, res) {
   try {
-    const usuarioDeletado = usuarios_service.deletar(req.params.id);
+    const usuarioDeletado = usuariosService.deletar(Number(req.params.id));
     res.json(usuarioDeletado);
   } catch (err) {
     res.status(err.id).json(err);
   }
-});
+}
+
+module.exports = {
+  listar,
+  buscarPorId,
+  inserir,
+  atualizar,
+  deletar,
+};
