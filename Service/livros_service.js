@@ -17,7 +17,8 @@ function inserir(livro) {
     livro.isbn &&
     livro.anoPublicacao &&
     livro.editora &&
-    livro.edicao
+    livro.edicao &&
+    livro.valor
   ) {
     return livrosRepository.inserirLivro(livro);
   } else {

@@ -16,7 +16,17 @@ function retirarLivro(req, res) {
   }
 }
 
-function devolverLivro() {}
+function devolverLivro(req, res) {
+  try {
+    const devolucao = retiradasService.devolverLivro(
+      req.body.id,
+      Number(req.params.id)
+    );
+    res.json(devolucao);
+  } catch (err) {
+    res.status(err.id).json(err);
+  }
+}
 
 module.exports = {
   listarLivrosRetirados,

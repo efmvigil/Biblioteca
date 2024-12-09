@@ -4,6 +4,7 @@ let idUsuarios = 0;
 function inserirUsuario(usuario) {
   usuario.id = ++idUsuarios;
   usuario.livrosRetirados = [];
+  usuario.multa = 0;
   listaUsuarios.push(usuario);
   return usuario;
 }
