@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const jwt = require('jsonwebtoken');
 
 const livrosRouter = require('./Router/livros_router');
 const usuariosRouter = require('./Router/usuarios_router');

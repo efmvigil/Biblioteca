@@ -34,7 +34,8 @@ function atualizar(id, atualizacao) {
       atualizacao.isbn &&
       atualizacao.anoPublicacao &&
       atualizacao.editora &&
-      atualizacao.edicao
+      atualizacao.edicao &&
+      atualizacao.valor
     ) {
       return livrosRepository.atualizarLivro(id, atualizacao);
     } else throw { id: 400, msg: 'Atualização com dados inválidos' };

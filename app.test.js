@@ -21,7 +21,7 @@ describe('testes sobre o CRUD livros', () => {
       .send({
         titulo: 'Livro 1',
         autores: 'Autor A',
-        isbn: '978-3-16-148410-0 ',
+        isbn: '978-3-16-148410-0',
         anoPublicacao: '2024',
         editora: 'Editora X',
         edicao: 1,

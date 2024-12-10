@@ -34,6 +34,13 @@ function atribuirIDs() {
   listaUsuarios.forEach((usuario) => (usuario.id = ++idUsuarios));
 }
 
+function verificarUsuarioExistente(login) {
+  const resultado = listaUsuarios.filter(
+    (usuario) => usuario.matricula === login.matricula
+  );
+  return resultado[0];
+}
+
 module.exports = {
   listaUsuarios,
   inserirUsuario,
@@ -41,4 +48,5 @@ module.exports = {
   atualizarUsuario,
   deletarUsuario,
   buscarUsuarioPorId,
+  verificarUsuarioExistente,
 };

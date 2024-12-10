@@ -9,25 +9,34 @@ function buscarPorId(req, res) {
     const usuarioEncontrado = usuariosService.buscarPorId(
       Number(req.params.id)
     );
-    res.status(200).json(usuarioEncontrado);
+    res.json(usuarioEncontrado);
   } catch (err) {
     res.status(err.id).json(err);
   }
 }
 
-function inserir(req, res) {
+async function inserir(req, res) {
   try {
-    const novoUsuario = usuariosService.inserir(req.body);
+    const novoUsuario = await usuariosService.registrarUsuario(req.body);
     res.status(201).json(novoUsuario);
   } catch (err) {
     res.status(err.id).json(err);
   }
 }
 
-function atualizar(req, res) {
+async function logar(req, res) {
   try {
-    const usuarioAtualizado = usuariosService.atualizar(
-      Number(req.params.id),
+    const result = await usuariosService.logarUsuario(req.body);
+    res.send(result);
+  } catch (err) {
+    res.status(err.id).send(err);
+  }
+}
+
+async function atualizar(req, res) {
+  try {
+    const usuarioAtualizado = await usuariosService.atualizar(
+      req.usuario.id,
       req.body
     );
     res.json(usuarioAtualizado);
@@ -38,7 +47,7 @@ function atualizar(req, res) {
 
 function deletar(req, res) {
   try {
-    const usuarioDeletado = usuariosService.deletar(Number(req.params.id));
+    const usuarioDeletado = usuariosService.deletar(Number(req.usuario.id));
     res.json(usuarioDeletado);
   } catch (err) {
     res.status(err.id).json(err);
@@ -49,6 +58,7 @@ module.exports = {
   listar,
   buscarPorId,
   inserir,
+  logar,
   atualizar,
   deletar,
 };

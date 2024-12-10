@@ -7,7 +7,7 @@ function listarLivrosRetirados(req, res) {
 function retirarLivro(req, res) {
   try {
     const livroRetirado = retiradasService.retirarLivro(
-      req.body.id,
+      req.usuario.id,
       Number(req.params.id)
     );
     res.json(livroRetirado);
@@ -19,7 +19,7 @@ function retirarLivro(req, res) {
 function devolverLivro(req, res) {
   try {
     const devolucao = retiradasService.devolverLivro(
-      req.body.id,
+      req.usuario.id,
       Number(req.params.id)
     );
     res.json(devolucao);

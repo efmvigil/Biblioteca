@@ -1,5 +1,3 @@
-const { listaLivros } = require('./livros_repository');
-const { listaUsuarios } = require('./usuarios_repository');
 const { format, parse, differenceInDays } = require('date-fns');
 
 const livrosRetirados = [];
@@ -44,33 +42,41 @@ function verificarLivroRetirado(idLivro) {
 }
 
 function calcularMulta(dataDevolucao, prazoDevolucao, valorLivro = 50) {
-  const prazoDevolucaoFormatado = parse(
+  const dataDevolucaoFormatada = parse(dataDevolucao, 'dd/MM/yyyy', new Date());
+  const prazoDevolucaoFormatada = parse(
     prazoDevolucao,
     'dd/MM/yyyy',
     new Date()
   );
-  const diasAtraso = differenceInDays(prazoDevolucaoFormatado, dataDevolucao);
+
+  const diasAtraso = differenceInDays(
+    dataDevolucaoFormatada,
+    prazoDevolucaoFormatada
+  );
   const percentualBase = 0.01;
   const incrementoDiario = 0.001;
-  if (diasAtraso >= 0)
+
+  if (diasAtraso <= 0) {
     return {
-      data_devolucao: format(dataDevolucao, 'dd/MM/yyyy'),
+      data_devolucao: format(dataDevolucaoFormatada, 'dd/MM/yyyy'),
       dias_de_atraso: 0,
       multa: 0,
     };
-  else {
+  } else {
     let multa = 0;
     for (let dia = 1; dia <= diasAtraso; dia++) {
       const percentualDia = percentualBase + incrementoDiario * dia;
       multa += valorLivro * percentualDia;
     }
     return {
-      data_devolucao: format(dataDevolucao, 'dd/MM/yyyy'),
+      data_devolucao: format(dataDevolucaoFormatada, 'dd/MM/yyyy'),
       dias_de_atraso: diasAtraso,
-      multa: multa.toFixed(2),
+      multa: parseFloat(multa.toFixed(2)),
     };
   }
 }
+
+// console.log(calcularMulta('10/12/2024', '25/11/2024'));
 
 module.exports = {
   listarLivrosRetirados,
